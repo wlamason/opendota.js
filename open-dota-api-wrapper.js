@@ -2,6 +2,7 @@ import 'request';
 
 class OpenDotaAPI {
     constructor() {
+        //Object of functions that return formatted endpoints
         this.methods = {
             matches: {
                 getMatch({ match_id }) {
@@ -183,49 +184,29 @@ class OpenDotaAPI {
         }
     }
 
- 
- 
-    //Build the request - QUERY - parameters
-    //Re-write
-    buildRequestArguments(type, params) {
-        const payload = { auth: `mailchimp:${this.apiKey}` };
-    
-        if (type === 'GET') {
-          payload.params = params || {};
-        } else {
-          payload.data = params || {};
-        }
-    
-        return payload;
+    //Takes endpoint, builds query string, returns the output of the request
+    apiRequest(action, queryParams) {
+        const options = {
+            url: `https://api.opendota.com/api${action.endpoint}`,
+            method: action.type,
+            qs: queryParams,
+        };
+
+        return new Promise((resolve, reject) => {
+            request(options, (err, res, body) => {
+                if (err) reject(err);
+                resolve(JSON.parse(body));
+            });
+        });
     }
 
-    //Needs to be fit with request rather than Metoer's request
-    //Build final request with HTTP method (type), base endpoint, action/methodToCall, and paramaters of request
-    apiRequest(action, params) {
-        const type = action.type;
-        const url = `https://api.opendota.com/api${action.endpoint}`;
-        //Probably just need to pass params (no type) and make a query string with es6 string literals
-        const args = this.buildRequestArguments(type, params);
-        //Need to use request instead of meteor/request
-        const request = HTTP.call(type, url, args);
-        //Need equivalent error return
-        if (request.error) return request.error;
-        return request;
-    }
-
-    //Action: Players - Method: WinLoss - Params: steam32id queryParams
-    //Code reuse in building the request from this.methods object
+    //Routes exposed method, builds request, returns request
     action(action, method, params) {
-        const methodToCall = this.methods[action][method](params);
-        return this.apiRequest(methodToCall, params);
+        const methodToCall = this.methods[action][method](params.path);
+        return this.apiRequest(methodToCall, params.query);
     }
 
-    //Different methods to be exposed and consumed (GET /matches/{match_id}, GET /players/{account_id}, etc)
-    //Look into default for method
-    lists(method, params) {
-        return this.action('lists', method, params);
-    }
-
+    //Exposed API functions
     matches(method, params) {
         return this.action('matches', method, params);
     }
