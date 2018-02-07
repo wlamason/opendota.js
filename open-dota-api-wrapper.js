@@ -1,6 +1,6 @@
 import 'request';
 
-class OpenDotaAPI {
+export default class OpenDotaAPI {
     constructor() {
         //Object of functions that return formatted endpoints
         this.methods = {
@@ -185,7 +185,7 @@ class OpenDotaAPI {
     }
 
     //Takes endpoint, builds query string, returns the output of the request
-    apiRequest(action, queryParams) {
+    apiRequest(action, { queryParams }) {
         const options = {
             url: `https://api.opendota.com/api${action.endpoint}`,
             method: action.type,
@@ -202,8 +202,8 @@ class OpenDotaAPI {
 
     //Routes exposed method, builds request, returns request
     action(action, method, params) {
-        const methodToCall = this.methods[action][method](params.path);
-        return this.apiRequest(methodToCall, params.query);
+        const methodToCall = this.methods[action][method](params);
+        return this.apiRequest(methodToCall, params);
     }
 
     //Exposed API functions
@@ -291,5 +291,3 @@ class OpenDotaAPI {
         return this.action('schema', method, params);
     }
 }
-
-export const OpenDotaWrapper = new OpenDotaAPI();
