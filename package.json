@@ -1,10 +1,10 @@
 {
-  "name": "open-dota-api-wrapper",
-  "version": "1.0.0",
-  "description": "An API wrapper for OpenDota in NodeJS.",
-  "main": "open-dota-api-wrapper.js",
+  "name": "opendota.js",
+  "version": "2.0.0",
+  "description": "A NodeJS OpenDota API wrapper.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "open",
@@ -12,11 +12,14 @@
     "api",
     "wrapper",
     "dota",
-    "dota2"
+    "dota2",
+    "client",
+    "library"
   ],
-  "author": "Will ME Lamason",
-  "license": "ISC",
-  "dependencies": {
-    "request": "^2.83.0"
+  "author": "Will Lamason <williamlamason@gmail.com>",
+  "license": "Apache-2.0",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^26.4.2"
   }
 }
