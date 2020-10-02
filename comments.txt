@@ -1,0 +1,61 @@
+https://repl.it/@wlamason/RequestTest
+https://nodejs.org/api/http.html#http_http_request_options_callback
+https://nodejs.org/api/querystring.html#querystring_querystring_stringify_obj_sep_eq_options
+https://webcache.googleusercontent.com/search?q=cache:QiGkzlpsMXMJ:https://nodejs.dev/making-http-requests-with-nodejs+&cd=2&hl=en&ct=clnk&gl=us
+https://github.com/ukd1/node-twilio/blob/master/lib/rest-client.js#L69
+https://github.com/twilio/twilio-node/blob/master/lib/base/RequestClient.js#L15
+https://www.codota.com/code/javascript/functions/https/request
+https://github.com/jhurliman/node-rate-limiter
+https://levelup.gitconnected.com/rate-limiting-a0783293026a
+https://kendru.github.io/javascript/2018/12/28/rate-limiting-in-javascript-with-a-token-bucket/
+https://docs.opendota.com/#
+finding steam id (/search?)
+enum of dota heroes to ids
+https://blog.bearer.sh/api-client-library-node-js/+&cd=5&hl=en&ct=clnk&gl=us
+https://stackoverflow.com/questions/5751585/how-do-i-rename-a-repository-on-github
+
+type: "GET", endpoint: `/matches/${match_id}`
+type: "GET", endpoint: `/players/${account_id}`
+type: "GET", endpoint: `/players/${account_id}/wl`
+type: "GET", endpoint: `/players/${account_id}/recentMatches`
+type: "GET", endpoint: `/players/${account_id}/matches`
+type: "GET", endpoint: `/players/${account_id}/heroes`
+type: "GET", endpoint: `/players/${account_id}/peers`
+type: "GET", endpoint: `/players/${account_id}/pros`
+type: "GET", endpoint: `/players/${account_id}/totals`
+type: "GET", endpoint: `/players/${account_id}/counts`
+type: "GET", endpoint: `/players/${account_id}/histograms/${field}`
+type: "GET", endpoint: `/players/${account_id}/wardmap`
+type: "GET", endpoint: `/players/${account_id}/wordcloud`
+type: "GET", endpoint: `/players/${account_id}/ratings`
+type: "GET", endpoint: `/players/${account_id}/rankings`
+type: "POST", endpoint: `/players/${account_id}/refresh`
+type: "GET", endpoint: `/proPlayers`
+type: "GET", endpoint: `/proMatches`
+type: "GET", endpoint: `/publicMatches`
+type: "GET", endpoint: `/explorer`
+type: "GET", endpoint: `/metadata`
+type: "GET", endpoint: `/distributions`
+type: "GET", endpoint: `/search`
+type: "GET}", endpoint: `/rankings`
+type: "GET", endpoint: `/benchmarks`
+type: "GET", endpoint: `/status`
+type: "GET", endpoint: `/health`
+type: "GET", endpoint: `/request/${jobId}`
+type: "POST", endpoint: `/request/${match_id}`
+type: "GET", endpoint: `/heroes`
+type: "GET", endpoint: `/heroes/${hero_id}/matches`
+type: "GET", endpoint: `/heroes/${hero_id}/matchups`
+type: "GET", endpoint: `/heroes/${hero_id}/durations`
+type: "GET", endpoint: `/heroes/${hero_id}/players`
+type: "GET", endpoint: `/heroStats`
+type: "GET", endpoint: `/leagues`
+type: "GET", endpoint: `/teams`
+type: "GET", endpoint: `/teams/${team_id}`
+type: "GET", endpoint: `/teams/${team_id}/matches`
+type: "GET", endpoint: `/teams/${team_id}/players`
+type: "GET", endpoint: `/teams/${team_id}/heroes`
+type: "GET", endpoint: `/replays`
+type: "GET", endpoint: `/records/${field}`
+type: "GET", endpoint: `/live`
+type: "GET", endpoint: `/schema`
