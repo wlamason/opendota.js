@@ -155,9 +155,9 @@ describe("getDistributions", () => {
     });
 });
 
-describe("getSearch", () => {
+describe("search", () => {
     test("it should resolve", () => {
-        return expect(opendota.getSearch({ q: "noob" })).resolves.toBeDefined();
+        return expect(opendota.search({ q: "noob" })).resolves.toBeDefined();
     });
 });
 
