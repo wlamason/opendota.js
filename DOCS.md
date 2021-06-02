@@ -430,7 +430,7 @@ Distribution of matches in a single stat.
 Wards placed in matches played by player.
 
 **Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
-**Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by in the official [documentation](https://docs.opendota.com/#tag/players%2Fpaths%2F~1players~1%7Baccount_id%7D~1wardmap%2Fget).  
+**Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by GET /players/{account_id}/wardmap in the official [documentation](https://docs.opendota.com/#tag/players%2Fpaths%2F~1players~1%7Baccount_id%7D~1wardmap%2Fget).  
 
 | Param | Type | Description |
 | --- | --- | --- |

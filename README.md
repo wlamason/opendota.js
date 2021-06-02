@@ -17,10 +17,18 @@ const { OpenDota } = require("opendota.js");
 const opendota = new OpenDota("OPTIONAL_API_KEY");
 
 // Search players by personaname
-opendota.search({ q: "noob" }).then(res => console.log(res));
+opendota.search({ q: "noob" }).then(response => console.log(response));
 
 // Get the health of the opendota api service
-opendota.getHealth().then(res => console.log(res));
+opendota.getHealth().then(response => console.log(response));
+
+// Using async/await syntax
+async function awaitDemo() {
+    const response = await opendota.search( { q: "noob" } );
+    console.log(response);
+}
+
+awaitDemo();
 ```
 
 ## Features

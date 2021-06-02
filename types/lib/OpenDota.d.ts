@@ -423,7 +423,7 @@ declare class OpenDota {
      * @param {number} [queryParameters.significant] - Whether the match was significant for aggregation purposes. Defaults to 1 (true), set this to 0 to return data for non-standard modes/matches.
      * @param {number} [queryParameters.having] - The minimum number of games played, for filtering hero stats.
      * @param {string} [queryParameters.sort] - The field to return matches sorted by in descending order.
-     * @returns {Promise} Promise object that resolves to JSON response represented by in the official {@link https://docs.opendota.com/#tag/players%2Fpaths%2F~1players~1%7Baccount_id%7D~1wardmap%2Fget documentation}.
+     * @returns {Promise} Promise object that resolves to JSON response represented by GET /players/{account_id}/wardmap in the official {@link https://docs.opendota.com/#tag/players%2Fpaths%2F~1players~1%7Baccount_id%7D~1wardmap%2Fget documentation}.
      */
     getWardmap(account_id: number, queryParameters?: {
         limit?: number;
