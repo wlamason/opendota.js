@@ -26,6 +26,7 @@ opendota.getHealth().then(res => console.log(res));
 ## Features
 
 - Covers 100% of the 54 opendota api endpoints.
+- 0 dependencies.
 - Fully documented and tested. 
 - Respects opendota api rate limits.
 - Reduces boilerplate calls to opendota api.
@@ -35,6 +36,7 @@ opendota.getHealth().then(res => console.log(res));
 Documentation can be found in [DOCS.md](./DOCS.md).
 
 ## Reporting Bugs
+Please use the [issues](https://github.com/wlamason/opendota.js/issues) tab above.
 
 ## Development - Run tests
 
