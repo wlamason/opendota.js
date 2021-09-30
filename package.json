@@ -1,6 +1,6 @@
 {
   "name": "opendota.js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A NodeJS OpenDota API wrapper.",
   "main": "index.js",
   "types": "./types/index.ts",
