@@ -2,8 +2,8 @@
   "name": "opendota.js",
   "version": "2.0.3",
   "description": "A NodeJS OpenDota API wrapper.",
-  "main": "index.d.js",
-  "types": "./types/index.ts",
+  "main": "index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
     "test": "jest",
     "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
