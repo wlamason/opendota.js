@@ -62,7 +62,7 @@ Please use the [issues](https://github.com/wlamason/opendota.js/issues) tab abov
 
 👤 **Will Lamason**
 
-* Website: wmel.us
+* Website: [wmel.us](https://wmel.us)
 * Github: [@wlamason](https://github.com/wlamason)
 
 ## Show your support
