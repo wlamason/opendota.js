@@ -1,1 +1,1 @@
-export var OpenDota: typeof import("./lib/OpenDota");
+export const OpenDota: typeof import("./lib/OpenDota");

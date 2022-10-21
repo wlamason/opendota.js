@@ -48,6 +48,9 @@ Provides access to the OpenDota API
     * [.getHeroItemPopularity(hero_id)](#OpenDota+getHeroItemPopularity) ⇒ <code>Promise</code>
     * [.getHeroStats()](#OpenDota+getHeroStats) ⇒ <code>Promise</code>
     * [.getLeagues()](#OpenDota+getLeagues) ⇒ <code>Promise</code>
+    * [.getLeague(league_id)](#OpenDota+getLeague) ⇒ <code>Promise</code>
+    * [.getLeagueMatches(league_id)](#OpenDota+getLeagueMatches) ⇒ <code>Promise</code>
+    * [.getLeagueTeams(league_id)](#OpenDota+getLeagueTeams) ⇒ <code>Promise</code>
     * [.getTeams()](#OpenDota+getTeams) ⇒ <code>Promise</code>
     * [.getTeam(team_id)](#OpenDota+getTeam) ⇒ <code>Promise</code>
     * [.getTeamMatches(team_id)](#OpenDota+getTeamMatches) ⇒ <code>Promise</code>
@@ -850,6 +853,51 @@ Get league data.
 
 **Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
 **Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by GET /leagues in the official [documentation](https://docs.opendota.com/#tag/leagues%2Fpaths%2F~1leagues%2Fget).  
+
+* * *
+
+<a name="OpenDota+getLeague"></a>
+
+### openDota.getLeague(league_id) ⇒ <code>Promise</code>
+Get data for a league.
+
+**Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
+**Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by GET /leagues/{league_id} in the official [documentation](https://docs.opendota.com/#tag/leagues%2Fpaths%2F~1leagues~1%7Bleague_id%7D%2Fget).  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| league_id | <code>number</code> | League ID (required). |
+
+
+* * *
+
+<a name="OpenDota+getLeagueMatches"></a>
+
+### openDota.getLeagueMatches(league_id) ⇒ <code>Promise</code>
+Get matches for a league.
+
+**Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
+**Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by GET /leagues/{league_id}/matches in the official [documentation](https://docs.opendota.com/#tag/leagues%2Fpaths%2F~1leagues~1%7Bleague_id%7D~1matches%2Fget).  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| league_id | <code>number</code> | League ID (required). |
+
+
+* * *
+
+<a name="OpenDota+getLeagueTeams"></a>
+
+### openDota.getLeagueTeams(league_id) ⇒ <code>Promise</code>
+Get teams for a league.
+
+**Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
+**Returns**: <code>Promise</code> - Promise object that resolves to JSON response represented by GET /leagues/{league_id}/teams in the official [documentation](https://docs.opendota.com/#tag/leagues%2Fpaths%2F~1leagues~1%7Bleague_id%7D~1teams%2Fget).  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| league_id | <code>number</code> | League ID (required). |
+
 
 * * *
 

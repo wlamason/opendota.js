@@ -6,6 +6,7 @@ const { OpenDota } = require("../index");
 const opendota = new OpenDota();
 const EXAMPLE_MATCH = 5634200463;
 const EXAMPLE_PLAYER = 111536544;
+const EXAMPLE_LEAGUE = 14268;
 
 describe("getMatch", () => {
     test("it should resolve", () => {
@@ -185,14 +186,6 @@ describe("getHealth", () => {
     });
 });
 
-// describe("getRequest", () => {
-
-// });
-
-// describe("postRequest", () => {
-
-// });
-
 describe("getFindMatches", () => {
     test("it should resolve", () => {
         return expect(opendota.getFindMatches()).resolves.toBeDefined();
@@ -244,6 +237,24 @@ describe("getHeroStats", () => {
 describe("getLeagues", () => {
     test("it should resolve", () => {
         return expect(opendota.getLeagues()).resolves.toBeDefined();
+    });
+});
+
+describe("getLeague", () => {
+    test("it should resolve", () => {
+        return expect(opendota.getLeague(EXAMPLE_LEAGUE)).resolves.toBeDefined();
+    });
+});
+
+describe("getLeagueMatches", () => {
+    test("it should resolve", () => {
+        return expect(opendota.getLeagueMatches(EXAMPLE_LEAGUE)).resolves.toBeDefined();
+    });
+});
+
+describe("getLeagueTeams", () => {
+    test("it should resolve", () => {
+        return expect(opendota.getLeagueTeams(EXAMPLE_LEAGUE)).resolves.toBeDefined();
     });
 });
 

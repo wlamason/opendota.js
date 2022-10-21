@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
-    "types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
+    "types": "npx tsc index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "repository": {
     "type": "git",
