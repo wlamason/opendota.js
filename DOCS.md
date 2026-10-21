@@ -14,7 +14,7 @@ Provides access to the OpenDota API
     * [.getWinLoss(account_id, [queryParameters])](#OpenDota+getWinLoss) ⇒ <code>Promise</code>
     * [.getRecentMatches(account_id)](#OpenDota+getRecentMatches) ⇒ <code>Promise</code>
     * [.getMatches(account_id, [queryParameters])](#OpenDota+getMatches) ⇒ <code>Promise</code>
-    * [.getHeroes(account_id, [queryParameters])](#OpenDota+getHeroes) ⇒ <code>Promise</code>
+    * [.getHeroesPlayed(account_id, [queryParameters])](#OpenDota+getHeroesPlayed) ⇒ <code>Promise</code>
     * [.getPeers(account_id, [queryParameters])](#OpenDota+getPeers) ⇒ <code>Promise</code>
     * [.getPros(account_id, [queryParameters])](#OpenDota+getPros) ⇒ <code>Promise</code>
     * [.getTotals(account_id, [queryParameters])](#OpenDota+getTotals) ⇒ <code>Promise</code>
@@ -219,9 +219,9 @@ Matches played by player.
 
 * * *
 
-<a name="OpenDota+getHeroes"></a>
+<a name="OpenDota+getHeroesPlayed"></a>
 
-### openDota.getHeroes(account_id, [queryParameters]) ⇒ <code>Promise</code>
+### openDota.getHeroesPlayed(account_id, [queryParameters]) ⇒ <code>Promise</code>
 Heroes played by player.
 
 **Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  

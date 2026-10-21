@@ -155,7 +155,7 @@ declare class OpenDota {
      * @param {string} [queryParameters.sort] - The field to return matches sorted by in descending order.
      * @returns {Promise} Promise object that resolves to JSON response represented by GET /players/{account_id}/heroes in the official {@link https://docs.opendota.com/#tag/players%2Fpaths%2F~1players~1%7Baccount_id%7D~1heroes%2Fget documentation}.
      */
-    getHeroes(account_id: number, queryParameters?: {
+    getHeroesPlayed(account_id: number, queryParameters?: {
         limit?: number;
         offset?: number;
         win?: number;
