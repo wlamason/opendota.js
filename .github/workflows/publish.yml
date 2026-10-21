@@ -1,0 +1,76 @@
+# Publishes opendota.js to npm when a GitHub release is published.
+# Authentication is npm trusted publishing (OIDC). This workflow must stay
+# named publish.yml so it matches the trusted publisher registered on npmjs.com.
+
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          # Current Active LTS (Node 24, "Krypton"). Meets the trusted-publishing
+          # minimum of Node 22.14.0. Node 24.22.1 bundles npm 11.19.1, which meets
+          # the npm CLI minimum of 11.5.1. See https://docs.npmjs.com/trusted-publishers/
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Ensure npm supports trusted publishing
+        run: |
+          REQUIRED="11.5.1"
+          CURRENT="$(npm --version)"
+          echo "node $(node --version), npm ${CURRENT} (trusted publishing requires npm >= ${REQUIRED} and Node >= 22.14.0)"
+          # sort -V -C succeeds when REQUIRED <= CURRENT.
+          if ! printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V -C; then
+            echo "npm ${CURRENT} is older than ${REQUIRED}; upgrading to the npm 11 line"
+            npm install -g npm@11
+            CURRENT="$(npm --version)"
+            echo "npm ${CURRENT}"
+            if ! printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V -C; then
+              echo "::error::npm ${CURRENT} still does not support trusted publishing (requires >= ${REQUIRED})."
+              exit 1
+            fi
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        # Skip __tests__/OpenDota.integration.test.js. Those 52 cases call the
+        # live OpenDota API (10s Jest timeout, 60 requests/minute without a key)
+        # and can fail a release for reasons unrelated to the package. The two
+        # unit suites still run through the npm test script.
+        run: npm test -- --testPathIgnorePatterns=integration
+
+      - name: Verify release tag matches package.json version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          EXPECTED="v${VERSION}"
+          if [ "$RELEASE_TAG" != "$EXPECTED" ]; then
+            echo "::error::Release tag '${RELEASE_TAG}' does not match package.json version ${VERSION}. Expected the tag to be '${EXPECTED}'."
+            exit 1
+          fi
+          echo "Release tag ${RELEASE_TAG} matches package.json version ${VERSION}."
+
+      # Trusted publishing generates provenance automatically for a public
+      # package from a public repository. Do not pass --provenance.
+      - name: Publish to npm
+        run: npm publish

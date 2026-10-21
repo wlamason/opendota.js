@@ -58,6 +58,17 @@ Please use the [issues](https://github.com/wlamason/opendota.js/issues) tab abov
 
 ```npm run types```
 
+## Releasing
+
+Bump the version, push the commit and tag to `main`, then create a GitHub release from that tag. Publishing the release runs [`.github/workflows/publish.yml`](.github/workflows/publish.yml), which publishes the package to npm with trusted publishing.
+
+```bash
+npm version minor   # or: npm version patch
+git push origin main --follow-tags
+```
+
+Create the GitHub release from the new `v*` tag (Releases → Draft a new release → select the tag → Publish release). The workflow checks that the tag is `v` plus the version in `package.json`, then runs `npm publish`.
+
 ## Author
 
 👤 **Will Lamason**
