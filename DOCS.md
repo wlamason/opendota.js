@@ -84,7 +84,7 @@ Create a new OpenDota object.
 Create a HTTP request to the OpenDota API. I do not recommend using this raw method directly, but rather the abstractions provided by opendota.js
 
 **Kind**: instance method of [<code>OpenDota</code>](#OpenDota)  
-**Returns**: <code>Promise</code> - Promise object with the result object of the HTTP request.  
+**Returns**: <code>Promise</code> - Promise object with the result object of the HTTP request. Rejects with an Error when the response body is not valid JSON (for example an HTML error page from an upstream proxy or gateway). The error message includes the parse error, the HTTP status code when available, and the first 200 characters of the body.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |

@@ -15,7 +15,7 @@ declare class OpenDota {
      * @param {string} path - Endpoint path.
      * @param {string} method - HTTP method.
      * @param {object} queryParameters - Query parameters to be processed by <pre><code>querystring.stringify(queryParameters)</code></pre>
-     * @returns {Promise} Promise object with the result object of the HTTP request.
+     * @returns {Promise} Promise object with the result object of the HTTP request. Rejects with an Error when the response body is not valid JSON (for example an HTML error page from an upstream proxy or gateway). The error message includes the parse error, the HTTP status code when available, and the first 200 characters of the body.
      */
     apiRequest(path: string, method: string, queryParameters?: object): Promise<any>;
     /**
