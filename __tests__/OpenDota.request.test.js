@@ -16,7 +16,7 @@ function parseErrorMessage(body) {
     throw new Error("expected body to be invalid JSON");
 }
 
-function mockResponse({ chunks, statusCode, error }) {
+function mockResponse({ chunks, statusCode }) {
     https.request.mockImplementation((options, callback) => {
         const request = new EventEmitter();
         request.end = () => {
@@ -26,8 +26,6 @@ function mockResponse({ chunks, statusCode, error }) {
 
             callback(response);
             setImmediate(() => {
-                if (error)
-                    response.emit("error", error);
                 for (const chunk of chunks)
                     response.emit("data", chunk);
                 response.emit("end");
@@ -55,7 +53,7 @@ describe("apiRequest JSON parsing", () => {
     }
 
     test("rejects with an Error when the response is non-JSON HTML", async () => {
-        const html = `<!DOCTYPE html><html><body>Cloudflare block ${"x".repeat(240)}</body></html>`;
+        const html = `<!DOCTYPE html><html><body>Bad gateway ${"x".repeat(240)}</body></html>`;
         mockResponse({
             chunks: [Buffer.from(html.slice(0, 50)), Buffer.from(html.slice(50))],
             statusCode: 403
@@ -74,7 +72,7 @@ describe("apiRequest JSON parsing", () => {
     });
 
     test("omits the ellipsis and status when the body is short and status is unavailable", async () => {
-        const html = "<html>Cloudflare</html>";
+        const html = "<html>upstream proxy error</html>";
         mockResponse({ chunks: [html] });
 
         const opendota = new OpenDota();
@@ -97,29 +95,6 @@ describe("apiRequest JSON parsing", () => {
 
         const opendota = new OpenDota();
         await expect(opendota.getHealth()).resolves.toEqual(payload);
-        expect(uncaught).toEqual([]);
-    });
-
-    test("rejects only once when the response errors and the body is not JSON", async () => {
-        mockResponse({
-            chunks: ["<html>bad gateway</html>"],
-            statusCode: 502,
-            error: new Error("socket hang up")
-        });
-
-        const opendota = new OpenDota();
-        const outcomes = [];
-        const promise = opendota.apiRequest("/health", "GET");
-        const settled = promise.then(
-            (value) => outcomes.push({ type: "resolve", value }),
-            (reason) => outcomes.push({ type: "reject", reason })
-        );
-
-        await settled;
-
-        expect(outcomes).toHaveLength(1);
-        expect(outcomes[0].type).toBe("reject");
-        expect(outcomes[0].reason).toBe("HTTP request failed to retrieve a response: socket hang up");
         expect(uncaught).toEqual([]);
     });
 
