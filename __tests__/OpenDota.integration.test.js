@@ -43,9 +43,9 @@ describe("getMatches", () => {
     });
 });
 
-describe("getHeroes", () => {
+describe("getHeroesPlayed", () => {
     test("it should resolve", () => {
-        return expect(opendota.getHeroes(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(opendota.getHeroesPlayed(EXAMPLE_PLAYER)).resolves.toBeDefined();
     });
 });
 
