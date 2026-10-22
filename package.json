@@ -6,6 +6,8 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "test": "jest",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
     "types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
@@ -32,6 +34,7 @@
   "dependencies": {},
   "devDependencies": {
     "jest": "^26.4.2",
-    "jsdoc-to-markdown": "^7.0.1"
+    "jsdoc-to-markdown": "^7.0.1",
+    "prettier": "^3.9.10"
   }
 }
