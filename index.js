@@ -1,1 +1,1 @@
-module.exports.OpenDota = require('./lib/OpenDota');
+module.exports.OpenDota = require("./lib/OpenDota");
