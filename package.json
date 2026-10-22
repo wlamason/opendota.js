@@ -8,6 +8,7 @@
         "test": "jest",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
+        "lint": "eslint .",
         "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
         "types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
     },
@@ -33,6 +34,9 @@
     "homepage": "https://github.com/wlamason/opendota.js#README.md",
     "dependencies": {},
     "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.13.0",
+        "globals": "^17.13.0",
         "jest": "^26.4.2",
         "jsdoc-to-markdown": "^7.0.1",
         "prettier": "^3.9.10"
