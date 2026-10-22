@@ -21,31 +21,41 @@ describe("getPlayersByRank", () => {
 
 describe("getPlayer", () => {
     test("it should resolve", () => {
-        return expect(opendota.getPlayer(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getPlayer(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getWinLoss", () => {
     test("it should resolve", () => {
-        return expect(opendota.getWinLoss(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getWinLoss(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getRecentMatches", () => {
     test("it should resolve", () => {
-        return expect(opendota.getRecentMatches(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getRecentMatches(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getMatches", () => {
     test("it should resolve", () => {
-        return expect(opendota.getMatches(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getMatches(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getHeroesPlayed", () => {
     test("it should resolve", () => {
-        return expect(opendota.getHeroesPlayed(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getHeroesPlayed(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
@@ -63,53 +73,71 @@ describe("getPros", () => {
 
 describe("getTotals", () => {
     test("it should resolve", () => {
-        return expect(opendota.getTotals(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getTotals(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getCounts", () => {
     test("it should resolve", () => {
-        return expect(opendota.getCounts(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getCounts(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getHistogram", () => {
     test("it should resolve", () => {
-        return expect(opendota.getHistogram(EXAMPLE_PLAYER, "kills")).resolves.toBeDefined();
+        return expect(
+            opendota.getHistogram(EXAMPLE_PLAYER, "kills"),
+        ).resolves.toBeDefined();
     });
 
     test("it should resolve", () => {
-        return expect(opendota.getHistogram(EXAMPLE_PLAYER, "last_hits")).resolves.toBeDefined();
+        return expect(
+            opendota.getHistogram(EXAMPLE_PLAYER, "last_hits"),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getWardmap", () => {
     test("it should resolve", () => {
-        return expect(opendota.getWardmap(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getWardmap(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getWordcloud", () => {
     test("it should resolve", () => {
-        return expect(opendota.getWordcloud(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getWordcloud(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getRating", () => {
     test("it should resolve", () => {
-        return expect(opendota.getRating(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getRating(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getRanking", () => {
     test("it should resolve", () => {
-        return expect(opendota.getRanking(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.getRanking(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("playersRefresh", () => {
     test("it should resolve", () => {
-        return expect(opendota.playersRefresh(EXAMPLE_PLAYER)).resolves.toBeDefined();
+        return expect(
+            opendota.playersRefresh(EXAMPLE_PLAYER),
+        ).resolves.toBeDefined();
     });
 });
 
@@ -139,7 +167,9 @@ describe("getParsedMatches", () => {
 
 describe("getExplorer", () => {
     test("it should resolve", () => {
-        return expect(opendota.getExplorer({ sql: "SELECT * FROM notable_players;" })).resolves.toBeDefined();
+        return expect(
+            opendota.getExplorer({ sql: "SELECT * FROM notable_players;" }),
+        ).resolves.toBeDefined();
     });
 });
 
@@ -163,13 +193,17 @@ describe("search", () => {
 
 describe("getRankings", () => {
     test("it should resolve", () => {
-        return expect(opendota.getRankings({ hero_id: 1 })).resolves.toBeDefined();
+        return expect(
+            opendota.getRankings({ hero_id: 1 }),
+        ).resolves.toBeDefined();
     });
 });
 
 describe("getBenchmarks", () => {
     test("it should resolve", () => {
-        return expect(opendota.getBenchmarks({ hero_id: 1 })).resolves.toBeDefined();
+        return expect(
+            opendota.getBenchmarks({ hero_id: 1 }),
+        ).resolves.toBeDefined();
     });
 });
 
@@ -279,7 +313,9 @@ describe("getTeamHeroes", () => {
 
 describe("getReplays", () => {
     test("it should resolve", () => {
-        return expect(opendota.getReplays({ match_id: [5629900166, 5629803618]})).resolves.toBeDefined();
+        return expect(
+            opendota.getReplays({ match_id: [5629900166, 5629803618] }),
+        ).resolves.toBeDefined();
     });
 });
 

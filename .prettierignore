@@ -1,0 +1,13 @@
+# Generated documentation and TypeScript declarations
+DOCS.md
+types/
+
+# Generated lockfile and coverage output
+package-lock.json
+coverage/
+
+# Release workflow files. PR 37 owns publish.yml and the README
+# Releasing section; leave them unformatted so this change does not
+# rewrite them.
+README.md
+.github/workflows/publish.yml

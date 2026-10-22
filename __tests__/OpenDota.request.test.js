@@ -1,7 +1,7 @@
 const { EventEmitter } = require("events");
 
 jest.mock("https", () => ({
-    request: jest.fn()
+    request: jest.fn(),
 }));
 
 const https = require("https");
@@ -21,13 +21,11 @@ function mockResponse({ chunks, statusCode }) {
         const request = new EventEmitter();
         request.end = () => {
             const response = new EventEmitter();
-            if (statusCode !== undefined)
-                response.statusCode = statusCode;
+            if (statusCode !== undefined) response.statusCode = statusCode;
 
             callback(response);
             setImmediate(() => {
-                for (const chunk of chunks)
-                    response.emit("data", chunk);
+                for (const chunk of chunks) response.emit("data", chunk);
                 response.emit("end");
             });
         };
@@ -55,8 +53,11 @@ describe("apiRequest JSON parsing", () => {
     test("rejects with an Error when the response is non-JSON HTML", async () => {
         const html = `<!DOCTYPE html><html><body>Bad gateway ${"x".repeat(240)}</body></html>`;
         mockResponse({
-            chunks: [Buffer.from(html.slice(0, 50)), Buffer.from(html.slice(50))],
-            statusCode: 403
+            chunks: [
+                Buffer.from(html.slice(0, 50)),
+                Buffer.from(html.slice(50)),
+            ],
+            statusCode: 403,
         });
 
         const opendota = new OpenDota();
@@ -65,7 +66,7 @@ describe("apiRequest JSON parsing", () => {
         expect(error).toBeInstanceOf(Error);
         expect(typeof error).not.toBe("string");
         expect(error.message).toBe(
-            `Failed to parse JSON response: ${parseErrorMessage(html)}. HTTP status 403. Response data: ${html.substring(0, 200)}...`
+            `Failed to parse JSON response: ${parseErrorMessage(html)}. HTTP status 403. Response data: ${html.substring(0, 200)}...`,
         );
         expect(error.message).not.toContain(html);
         expect(uncaught).toEqual([]);
@@ -76,11 +77,13 @@ describe("apiRequest JSON parsing", () => {
         mockResponse({ chunks: [html] });
 
         const opendota = new OpenDota();
-        const error = await opendota.apiRequest("/health", "GET").catch((err) => err);
+        const error = await opendota
+            .apiRequest("/health", "GET")
+            .catch((err) => err);
 
         expect(error).toBeInstanceOf(Error);
         expect(error.message).toBe(
-            `Failed to parse JSON response: ${parseErrorMessage(html)}. Response data: ${html}`
+            `Failed to parse JSON response: ${parseErrorMessage(html)}. Response data: ${html}`,
         );
         expect(uncaught).toEqual([]);
     });
@@ -90,7 +93,7 @@ describe("apiRequest JSON parsing", () => {
         const body = JSON.stringify(payload);
         mockResponse({
             chunks: [Buffer.from(body.slice(0, 4)), Buffer.from(body.slice(4))],
-            statusCode: 200
+            statusCode: 200,
         });
 
         const opendota = new OpenDota();
@@ -106,7 +109,9 @@ describe("apiRequest JSON parsing", () => {
         const opendota = new OpenDota();
         opendota.tokenBucket.tokens = 0;
 
-        await expect(opendota.getHealth()).rejects.toBe("API rate limit exceeded.");
+        await expect(opendota.getHealth()).rejects.toBe(
+            "API rate limit exceeded.",
+        );
         expect(https.request).not.toHaveBeenCalled();
         expect(uncaught).toEqual([]);
     });

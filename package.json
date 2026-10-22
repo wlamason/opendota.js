@@ -1,37 +1,40 @@
 {
-  "name": "opendota.js",
-  "version": "2.1.0",
-  "description": "A NodeJS OpenDota API wrapper.",
-  "main": "index.js",
-  "types": "./types/index.d.ts",
-  "scripts": {
-    "test": "jest",
-    "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
-    "types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wlamason/opendota.js.git"
-  },
-  "keywords": [
-    "open",
-    "opendota",
-    "api",
-    "wrapper",
-    "dota",
-    "dota2",
-    "client",
-    "library"
-  ],
-  "author": "Will Lamason <williamlamason@gmail.com>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/wlamason/opendota.js/issues"
-  },
-  "homepage": "https://github.com/wlamason/opendota.js#README.md",
-  "dependencies": {},
-  "devDependencies": {
-    "jest": "^26.4.2",
-    "jsdoc-to-markdown": "^7.0.1"
-  }
+    "name": "opendota.js",
+    "version": "2.1.0",
+    "description": "A NodeJS OpenDota API wrapper.",
+    "main": "index.js",
+    "types": "./types/index.d.ts",
+    "scripts": {
+        "test": "jest",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "docs": "jsdoc2md ./lib/OpenDota.js --separators > DOCS.md",
+        "types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir types"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wlamason/opendota.js.git"
+    },
+    "keywords": [
+        "open",
+        "opendota",
+        "api",
+        "wrapper",
+        "dota",
+        "dota2",
+        "client",
+        "library"
+    ],
+    "author": "Will Lamason <williamlamason@gmail.com>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/wlamason/opendota.js/issues"
+    },
+    "homepage": "https://github.com/wlamason/opendota.js#README.md",
+    "dependencies": {},
+    "devDependencies": {
+        "jest": "^26.4.2",
+        "jsdoc-to-markdown": "^7.0.1",
+        "prettier": "^3.9.10"
+    }
 }

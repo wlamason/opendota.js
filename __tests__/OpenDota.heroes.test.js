@@ -20,8 +20,8 @@ describe("hero endpoints", () => {
                 {
                     path: "/players/111536544/heroes",
                     method: "GET",
-                    queryParameters
-                }
+                    queryParameters,
+                },
             ]);
         });
     });
@@ -35,8 +35,8 @@ describe("hero endpoints", () => {
                 {
                     path: "/heroes",
                     method: "GET",
-                    queryParameters: undefined
-                }
+                    queryParameters: undefined,
+                },
             ]);
         });
     });
