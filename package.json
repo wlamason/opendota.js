@@ -7,7 +7,7 @@
     "scripts": {
         "test": "jest",
         "test:unit": "jest --coverage --testPathIgnorePatterns=/node_modules/ --testPathIgnorePatterns=OpenDota.integration.test",
-        "test:integration": "jest __tests__/OpenDota.integration.test.js",
+        "test:integration": "jest __tests__/OpenDota.integration.test.js --testTimeout=30000",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint": "eslint .",
