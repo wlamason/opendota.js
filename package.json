@@ -6,6 +6,7 @@
     "types": "./types/index.d.ts",
     "scripts": {
         "test": "jest",
+        "test:unit": "jest --coverage --testPathIgnorePatterns=/node_modules/ --testPathIgnorePatterns=OpenDota.integration.test",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "lint": "eslint .",

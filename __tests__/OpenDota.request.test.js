@@ -16,8 +16,10 @@ function parseErrorMessage(body) {
     throw new Error("expected body to be invalid JSON");
 }
 
-function mockResponse({ chunks, statusCode }) {
+function mockResponse({ chunks = [], statusCode, error } = {}) {
+    const calls = [];
     https.request.mockImplementation((options, callback) => {
+        calls.push(options);
         const request = new EventEmitter();
         request.end = () => {
             const response = new EventEmitter();
@@ -25,12 +27,17 @@ function mockResponse({ chunks, statusCode }) {
 
             callback(response);
             setImmediate(() => {
+                if (error) {
+                    response.emit("error", error);
+                    return;
+                }
                 for (const chunk of chunks) response.emit("data", chunk);
                 response.emit("end");
             });
         };
         return request;
     });
+    return calls;
 }
 
 describe("apiRequest JSON parsing", () => {
@@ -98,6 +105,66 @@ describe("apiRequest JSON parsing", () => {
 
         const opendota = new OpenDota();
         await expect(opendota.getHealth()).resolves.toEqual(payload);
+        expect(uncaught).toEqual([]);
+    });
+
+    test("sends the api key and query parameters on one request", async () => {
+        const calls = mockResponse({ chunks: ["{}"], statusCode: 200 });
+        const opendota = new OpenDota("secret");
+
+        await expect(
+            opendota.apiRequest("/search", "GET", { q: "noob" }),
+        ).resolves.toEqual({});
+        expect(calls).toEqual([
+            {
+                hostname: "api.opendota.com",
+                method: "GET",
+                path: "/api/search?api_key=secret&q=noob",
+            },
+        ]);
+        expect(opendota.tokenBucket.bucketSize).toBe(1200);
+        expect(opendota.tokenBucket.tokensPerInterval).toBe(1200);
+        expect(uncaught).toEqual([]);
+    });
+
+    test("sends only the api key when query parameters are omitted", async () => {
+        const calls = mockResponse({ chunks: ["{}"], statusCode: 200 });
+        const opendota = new OpenDota("secret");
+
+        await expect(opendota.apiRequest("/health", "GET")).resolves.toEqual(
+            {},
+        );
+        expect(calls[0].path).toBe("/api/health?api_key=secret");
+        expect(uncaught).toEqual([]);
+    });
+
+    test("sends only query parameters when no api key is set", async () => {
+        const calls = mockResponse({ chunks: ["{}"], statusCode: 200 });
+        const opendota = new OpenDota();
+
+        await expect(
+            opendota.apiRequest("/search", "POST", { q: "noob" }),
+        ).resolves.toEqual({});
+        expect(calls).toEqual([
+            {
+                hostname: "api.opendota.com",
+                method: "POST",
+                path: "/api/search?q=noob",
+            },
+        ]);
+        expect(opendota.tokenBucket.bucketSize).toBe(60);
+        expect(opendota.tokenBucket.tokensPerInterval).toBe(60);
+        expect(uncaught).toEqual([]);
+    });
+
+    test("rejects when the response emits an error", async () => {
+        mockResponse({ error: new Error("socket hang up") });
+        const opendota = new OpenDota();
+
+        await expect(opendota.apiRequest("/health", "GET")).rejects.toBe(
+            "HTTP request failed to retrieve a response: socket hang up",
+        );
+        expect(https.request).toHaveBeenCalled();
         expect(uncaught).toEqual([]);
     });
 
