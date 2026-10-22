@@ -58,6 +58,12 @@ Please use the [issues](https://github.com/wlamason/opendota.js/issues) tab abov
 
 ```npm run types```
 
+## Releasing
+
+Go to the [Actions](https://github.com/wlamason/opendota.js/actions) tab, choose the Release workflow ([`.github/workflows/publish.yml`](.github/workflows/publish.yml)), click **Run workflow**, and pick the bump (`patch`, `minor`, or `major`). The default is `patch`. The workflow runs on `main`. It runs the unit tests, then the live OpenDota integration tests, and only after both pass bumps the version, pushes the commit and tag, publishes the package to npm, and creates the GitHub release.
+
+One-time setup on npmjs.com: add a trusted publisher for GitHub Actions with owner `wlamason`, repository `opendota.js`, workflow filename `publish.yml`, no environment, and allow `npm publish`.
+
 ## Author
 
 👤 **Will Lamason**

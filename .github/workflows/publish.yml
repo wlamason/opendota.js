@@ -1,0 +1,119 @@
+# One-click release for opendota.js. The filename must stay publish.yml so it
+# matches the npm trusted publisher registered for this repository.
+#
+# Failure order: version bump and tag push happen only after both test steps
+# pass. npm publish runs before the GitHub release is created. A failed
+# publish then leaves no release for a version that is not on npm. If publish
+# succeeds and creating the release fails, the package is already on npm and
+# only the release still needs to be created. Do not re-run this workflow
+# after the push has succeeded; it would bump the version again.
+
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump
+        required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require main branch
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "::error::This workflow can only run from refs/heads/main (current ref: ${GITHUB_REF})."
+            exit 1
+          fi
+          echo "Running on ${GITHUB_REF}."
+
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          # Current Active LTS (Node 24). Meets the trusted-publishing minimum
+          # of Node 22.14.0. Node 24.22.1 bundles npm 11.19.1, which meets the
+          # npm CLI minimum of 11.5.1.
+          # https://docs.npmjs.com/trusted-publishers/
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Ensure npm supports trusted publishing
+        run: |
+          REQUIRED="11.5.1"
+          CURRENT="$(npm --version)"
+          echo "node $(node --version), npm ${CURRENT} (trusted publishing requires npm >= ${REQUIRED} and Node >= 22.14.0)"
+          # sort -V -C succeeds when REQUIRED <= CURRENT.
+          if ! printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V -C; then
+            echo "npm ${CURRENT} is older than ${REQUIRED}; upgrading to the npm 11 line"
+            npm install -g npm@11
+            CURRENT="$(npm --version)"
+            echo "npm ${CURRENT}"
+            if ! printf '%s\n%s\n' "$REQUIRED" "$CURRENT" | sort -V -C; then
+              echo "::error::npm ${CURRENT} still does not support trusted publishing (requires >= ${REQUIRED})."
+              exit 1
+            fi
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test -- --testPathIgnorePatterns=OpenDota.integration.test
+
+      - name: Run integration tests
+        run: npm test -- __tests__/OpenDota.integration.test.js
+
+      - name: Set git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version
+        env:
+          BUMP: ${{ inputs.bump }}
+        run: |
+          case "$BUMP" in
+            patch|minor|major) ;;
+            *)
+              echo "::error::bump must be patch, minor, or major (got '${BUMP}')."
+              exit 1
+              ;;
+          esac
+          npm version "$BUMP" -m "%s [skip ci]"
+          echo "Version is now $(node -p "require('./package.json').version")."
+
+      - name: Push commit and tag
+        run: git push origin main --follow-tags
+
+      # Trusted publishing generates provenance automatically for this public
+      # package from this public repository. Do not pass --provenance.
+      - name: Publish to npm
+        run: npm publish
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v$(node -p "require('./package.json').version")"
+          gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes
