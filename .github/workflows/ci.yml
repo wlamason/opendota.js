@@ -5,6 +5,11 @@ on:
     push:
         branches:
             - main
+    schedule:
+        # Saturday 04:30 UTC (00:30 Saturday US Eastern during daylight time,
+        # 23:30 Friday US Eastern during standard time).
+        - cron: "30 4 * * 6"
+    workflow_dispatch:
 
 permissions:
     contents: read
@@ -22,3 +27,4 @@ jobs:
             - run: npm run format:check
             - run: npm run lint
             - run: npm run test:unit
+            - run: npm run test:integration

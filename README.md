@@ -1,6 +1,7 @@
 # opendota.js
-![Version](https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/wlamason/opendota.js/blob/master/LICENSE)
+![Version](https://img.shields.io/badge/version-2.1.0-blue.svg?cacheSeconds=2592000)
+[![CI](https://github.com/wlamason/opendota.js/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wlamason/opendota.js/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/wlamason/opendota.js/blob/main/LICENSE)
 
 A minimalistic wrapper for the opendota api. 
 
@@ -46,21 +47,24 @@ Documentation can be found in [DOCS.md](./DOCS.md).
 ## Reporting Bugs
 Please use the [issues](https://github.com/wlamason/opendota.js/issues) tab above.
 
-## Development - Run tests
+## Development
 
-```npm run test```
+```
+npm run format
+npm run format:check
+npm run lint
+npm run test:unit
+npm run test:integration
+npm run test
+npm run docs
+npm run types
+```
 
-## Development - Generate Docs
-
-```npm run docs```
-
-## Development - Generate Types
-
-```npm run types```
+`format` writes Prettier formatting and `format:check` checks it. `lint` runs ESLint. `test:unit` runs the unit tests. `test:integration` runs the live OpenDota integration tests. `test` runs both. `docs` regenerates DOCS.md. `types` regenerates the TypeScript declarations.
 
 ## Releasing
 
-Go to the [Actions](https://github.com/wlamason/opendota.js/actions) tab, choose the Release workflow ([`.github/workflows/publish.yml`](.github/workflows/publish.yml)), click **Run workflow**, and pick the bump (`patch`, `minor`, or `major`). The default is `patch`. The workflow runs on `main`. It runs the unit tests, then the live OpenDota integration tests, and only after both pass bumps the version, pushes the commit and tag, publishes the package to npm, and creates the GitHub release.
+Go to the [Actions](https://github.com/wlamason/opendota.js/actions) tab, choose the Release workflow ([`.github/workflows/publish.yml`](.github/workflows/publish.yml)), click **Run workflow**, and pick the bump (`patch`, `minor`, or `major`). The default is `patch`. The workflow runs on `main`. It runs `npm run test:unit`, then `npm run test:integration`, and only after both pass bumps the version, pushes the commit and tag, publishes the package to npm, and creates the GitHub release.
 
 One-time setup on npmjs.com: add a trusted publisher for GitHub Actions with owner `wlamason`, repository `opendota.js`, workflow filename `publish.yml`, no environment, and allow `npm publish`.
 
@@ -80,4 +84,4 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2021 [Will Lamason](https://github.com/wlamason).
 
-This project is [Apache License 2.0](https://github.com/wlamason/opendota.js/blob/master/LICENSE) licensed.
+This project is [Apache License 2.0](https://github.com/wlamason/opendota.js/blob/main/LICENSE) licensed.
